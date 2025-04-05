@@ -31,11 +31,10 @@ public class App {
     private Player playerX;
     private Player playerO;
 
-
-    public App(Player playerX, Player playerO) {
+    public App(Player playerX, Player playerO, Player firstPlayer) {
         this.playerX = playerX;
         this.playerO = playerO;
-        this.currentPlayer = playerX;
+        this.currentPlayer = firstPlayer;
         this.board = new char[BOARD_SIZE][BOARD_SIZE];
         resetBoard();
     }
@@ -97,5 +96,32 @@ public class App {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public Player getPlayerX() {
+        return playerX;
+    }
+
+    public Player getPlayerO() {
+        return playerO;
+    }
+
+    public void setFirstPlayer(Player player) {
+        this.currentPlayer = player;
+    }
+
+    public void printBoard() {
+        System.out.println();
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            System.out.print(" ");
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                System.out.print(" " + board[i][j] + " ");
+                if (j < 2) System.out.print("|");
+            }
+            if (i < 2) {
+                System.out.println("\n-----------");
+            }
+        }
+        System.out.println();
     }
 }

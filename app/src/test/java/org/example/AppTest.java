@@ -8,7 +8,8 @@ public class AppTest {
     void testInitialBoardSetup() {
         Player playerX = new Player("Player 1", 'X');
         Player playerO = new Player("Player 2", 'O');
-        App game = new App(playerX, playerO);
+        App game = new App(playerX, playerO, playerX);
+
         char[][] expected = {
             {'1','2','3'},
             {'4','5','6'},
@@ -21,7 +22,7 @@ public class AppTest {
     void testIsMoveValid() {
         Player playerX = new Player("Player 1", 'X');
         Player playerO = new Player("Player 2", 'O');
-        App game = new App(playerX, playerO);
+        App game = new App(playerX, playerO, playerX);
         assertTrue(game.isMoveValid(1), "Move 1 should be valid on empty board");
         assertFalse(game.isMoveValid(0), "Move 0 is out of range");
         assertFalse(game.isMoveValid(10), "Move 10 is out of range");
@@ -31,7 +32,7 @@ public class AppTest {
     void testMakeMoveAndCheck() {
         Player playerX = new Player("Player 1", 'X');
         Player playerO = new Player("Player 2", 'O');
-        App game = new App(playerX, playerO);
+        App game = new App(playerX, playerO, playerX);
         game.makeMove(1);
         assertFalse(game.isMoveValid(1), "Cell 1 should now be occupied");
     }
