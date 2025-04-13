@@ -1,3 +1,4 @@
+// GameRunner.java
 package org.example;
 
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class GameRunner {
 
                 while (!gameEnded) {
                     game.printBoard();
-                    System.out.print("What is your move? ");
+                    System.out.print("What is your move: ");
                     int move;
                     try {
                         move = Integer.parseInt(scanner.nextLine());
@@ -40,7 +41,7 @@ public class GameRunner {
                     if (game.checkWin()) {
                         game.printBoard();
                         System.out.println("Player " + game.getCurrentPlayer().getSymbol() + " wins!");
-                        game.incrementWin(game.getCurrentPlayer());
+                        game.getCurrentPlayer().addWin();
 
                         currentFirstPlayer = (game.getCurrentPlayer() == playerX) ? playerO : playerX;
                         game.setFirstPlayer(currentFirstPlayer);
@@ -68,6 +69,6 @@ public class GameRunner {
         }
 
         System.out.println("\nWriting the game log to disk. Please see game.txt for the final statistics!");
-        game.saveLogToFile();
+        GameLogger.saveLogToFile(playerX, playerO, game.getTies());
     }
 }

@@ -1,11 +1,10 @@
+// Player.java
 package org.example;
 
-/**
- * Player class represents a Tic-Tac-Toe player with a name and symbol.
- */
 public class Player {
     private final String name;
     private final char symbol;
+    private int wins = 0;
 
     public Player(String name, char symbol) {
         this.name = name;
@@ -18,5 +17,13 @@ public class Player {
 
     public char getSymbol() {
         return symbol;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void addWin() {
+        wins++;
     }
 }

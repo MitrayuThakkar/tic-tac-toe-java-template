@@ -1,7 +1,5 @@
+// App.java
 package org.example;
-
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class App {
     private static final int BOARD_SIZE = 3;
@@ -9,9 +7,6 @@ public class App {
     private Player currentPlayer;
     private Player playerX;
     private Player playerO;
-
-    private int xWins = 0;
-    private int oWins = 0;
     private int ties = 0;
 
     public App(Player playerX, Player playerO, Player firstPlayer) {
@@ -88,20 +83,13 @@ public class App {
     }
 
     public void printLog() {
-        System.out.println("\nPlayer X Wins   " + xWins);
-        System.out.println("Player O Wins   " + oWins);
+        System.out.println("\nPlayer X Wins   " + playerX.getWins());
+        System.out.println("Player O Wins   " + playerO.getWins());
         System.out.println("Ties            " + ties + "\n");
     }
 
-    public void saveLogToFile() {
-        try (FileWriter writer = new FileWriter("game.txt")) {
-            writer.write("Final Game Statistics:\n");
-            writer.write("Player X Wins: " + xWins + "\n");
-            writer.write("Player O Wins: " + oWins + "\n");
-            writer.write("Ties: " + ties + "\n");
-        } catch (IOException e) {
-            System.out.println("Error saving game log: " + e.getMessage());
-        }
+    public void incrementTie() {
+        ties++;
     }
 
     public Player getCurrentPlayer() {
@@ -120,12 +108,7 @@ public class App {
         return playerO;
     }
 
-    public void incrementWin(Player player) {
-        if (player == playerX) xWins++;
-        else if (player == playerO) oWins++;
-    }
-
-    public void incrementTie() {
-        ties++;
+    public int getTies() {
+        return ties;
     }
 }
