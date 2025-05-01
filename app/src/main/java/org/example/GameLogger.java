@@ -1,3 +1,4 @@
+// GameLogger.java
 package org.example;
 
 import java.io.FileWriter;
