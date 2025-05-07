@@ -12,13 +12,8 @@ public class ComputerPlayer extends Player {
     }
 
     public int chooseMove(char[][] board, char opponentSymbol) {
-        if (isBoardEmpty(board)) {
-            return chooseRandomCorner();
-        }
-
-        if (isSecondMove(board) && board[1][1] != getSymbol() && board[1][1] != opponentSymbol) {
-            return 5;
-        }
+        if (isBoardEmpty(board)) return chooseRandomCorner();
+        if (isSecondMove(board) && board[1][1] != getSymbol() && board[1][1] != opponentSymbol) return 5;
 
         Integer winMove = findWinningMove(board, getSymbol());
         if (winMove != null) return winMove;
@@ -30,21 +25,17 @@ public class ComputerPlayer extends Player {
     }
 
     private boolean isBoardEmpty(char[][] board) {
-        for (char[] row : board) {
-            for (char c : row) {
+        for (char[] row : board)
+            for (char c : row)
                 if (c == 'X' || c == 'O') return false;
-            }
-        }
         return true;
     }
 
     private boolean isSecondMove(char[][] board) {
         int count = 0;
-        for (char[] row : board) {
-            for (char c : row) {
+        for (char[] row : board)
+            for (char c : row)
                 if (c == 'X' || c == 'O') count++;
-            }
-        }
         return count == 1;
     }
 
@@ -64,12 +55,11 @@ public class ComputerPlayer extends Player {
     }
 
     private boolean checkWin(char[][] board, char symbol) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
             if ((board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) ||
-                (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol)) {
+                (board[0][i] == symbol && board[1][i] == symbol && board[2][i] == symbol))
                 return true;
-            }
-        }
+
         return (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) ||
                (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol);
     }

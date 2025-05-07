@@ -1,4 +1,3 @@
-// Player.java
 package org.example;
 
 public class Player {

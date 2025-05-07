@@ -1,3 +1,4 @@
+//AppTest.java
 package org.example;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -5,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
-
     private Player playerX;
     private Player playerO;
     private App game;
@@ -18,63 +18,52 @@ public class AppTest {
     }
 
     @Test
-    void testInitialBoardSetup() {
-        char[][] expected = {
-            {'1', '2', '3'},
-            {'4', '5', '6'},
-            {'7', '8', '9'}
-        };
-        assertArrayEquals(expected, game.getBoard(), "Board should start labeled 1 through 9");
+    void testBoardReset() {
+        game.resetBoard();
+        char[][] board = game.getBoard();
+        assertEquals('1', board[0][0]);
+        assertEquals('5', board[1][1]);
+        assertEquals('9', board[2][2]);
     }
 
     @Test
-    void testIsMoveValid() {
-        assertTrue(game.isMoveValid(1), "Move 1 should be valid");
-        assertFalse(game.isMoveValid(0), "Move 0 is out of range");
-        assertFalse(game.isMoveValid(10), "Move 10 is out of range");
-    }
-
-    @Test
-    void testMakeMove() {
+    void testMoveValidity() {
+        assertTrue(game.isMoveValid(1));
         game.makeMove(1);
-        assertFalse(game.isMoveValid(1), "Move should not be valid after being made");
+        assertFalse(game.isMoveValid(1));
+        assertFalse(game.isMoveValid(0));
+        assertFalse(game.isMoveValid(10));
+    }
+
+    @Test
+    void testWinDetection() {
+        game.makeMove(1);
+        game.switchPlayer();
+        game.makeMove(4);
+        game.switchPlayer();
+        game.makeMove(2);
+        game.switchPlayer();
+        game.makeMove(5);
+        game.switchPlayer();
+        game.makeMove(3); // Player X wins
+        assertTrue(game.checkWin());
+    }
+
+    @Test
+    void testTieDetection() {
+        int[] moves = {1, 2, 3, 5, 4, 6, 8, 7, 9};
+        for (int i = 0; i < moves.length; i++) {
+            game.makeMove(moves[i]);
+            if (i < moves.length - 1) game.switchPlayer();
+        }
+        assertTrue(game.isBoardFull());
+        assertFalse(game.checkWin());
     }
 
     @Test
     void testSwitchPlayer() {
-        Player initial = game.getCurrentPlayer();
+        Player current = game.getCurrentPlayer();
         game.switchPlayer();
-        assertNotEquals(initial, game.getCurrentPlayer(), "Player should switch after turn");
-    }
-
-    @Test
-    void testWinConditionRow() {
-        game.makeMove(1); // X
-        game.switchPlayer();
-        game.makeMove(4); // O
-        game.switchPlayer();
-        game.makeMove(2); // X
-        game.switchPlayer();
-        game.makeMove(5); // O
-        game.switchPlayer();
-        game.makeMove(3); // X
-
-        assertTrue(game.checkWin(), "Player X should win by completing the top row");
-    }
-
-    @Test
-    void testTieCondition() {
-        int[] moves = {1, 2, 3, 5, 4, 6, 8, 7, 9};
-        
-        // Alternate moves explicitly for each turn.
-        for (int i = 0; i < moves.length; i++) {
-            game.makeMove(moves[i]);
-            if (i < moves.length - 1) { // no need to switch after the last move
-                game.switchPlayer();
-            }
-        }
-        
-        assertTrue(game.isBoardFull(), "Board should be full");
-        assertFalse(game.checkWin(), "There should be no winner");
+        assertNotEquals(current, game.getCurrentPlayer());
     }
 }

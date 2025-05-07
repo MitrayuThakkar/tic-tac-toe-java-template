@@ -1,4 +1,4 @@
-// App.java
+//App.java
 package org.example;
 
 public class App {
@@ -45,13 +45,22 @@ public class App {
 
     public boolean checkWin() {
         for (int i = 0; i < BOARD_SIZE; i++) {
-            if ((board[i][0] == currentPlayer.getSymbol() && board[i][1] == currentPlayer.getSymbol() && board[i][2] == currentPlayer.getSymbol()) ||
-                (board[0][i] == currentPlayer.getSymbol() && board[1][i] == currentPlayer.getSymbol() && board[2][i] == currentPlayer.getSymbol())) {
+            if ((board[i][0] == currentPlayer.getSymbol() &&
+                 board[i][1] == currentPlayer.getSymbol() &&
+                 board[i][2] == currentPlayer.getSymbol()) ||
+                (board[0][i] == currentPlayer.getSymbol() &&
+                 board[1][i] == currentPlayer.getSymbol() &&
+                 board[2][i] == currentPlayer.getSymbol())) {
                 return true;
             }
         }
-        return (board[0][0] == currentPlayer.getSymbol() && board[1][1] == currentPlayer.getSymbol() && board[2][2] == currentPlayer.getSymbol()) ||
-               (board[0][2] == currentPlayer.getSymbol() && board[1][1] == currentPlayer.getSymbol() && board[2][0] == currentPlayer.getSymbol());
+
+        return (board[0][0] == currentPlayer.getSymbol() &&
+                board[1][1] == currentPlayer.getSymbol() &&
+                board[2][2] == currentPlayer.getSymbol()) ||
+               (board[0][2] == currentPlayer.getSymbol() &&
+                board[1][1] == currentPlayer.getSymbol() &&
+                board[2][0] == currentPlayer.getSymbol());
     }
 
     public boolean isBoardFull() {
@@ -75,9 +84,7 @@ public class App {
                 System.out.print(" " + board[i][j] + " ");
                 if (j < 2) System.out.print("|");
             }
-            if (i < 2) {
-                System.out.println("\n-----------");
-            }
+            if (i < 2) System.out.println("\n-----------");
         }
         System.out.println();
     }
